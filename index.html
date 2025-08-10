@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" data-color-scheme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Dorking Scanner - Automated Security Research Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="header-title">Google Dorking Scanner</h1>
+                <p class="header-subtitle">Automated Security Research Platform for Ethical Penetration Testing</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="container">
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-tab="scanner">Scanner</button>
+                <button class="nav-tab" data-tab="categories">Categories</button>
+                <button class="nav-tab" data-tab="results">Results</button>
+                <button class="nav-tab" data-tab="operators">Operators</button>
+                <button class="nav-tab" data-tab="ethics">Ethics</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Scanner Tab -->
+            <section class="tab-content active" data-content="scanner">
+                <!-- Legal Warning -->
+                <div class="ethics-warning">
+                    <h3>⚠️ Legal Warning</h3>
+                    <p>This tool is for authorized security testing only. Only scan domains you own or have explicit permission to test. Unauthorized scanning may violate laws and terms of service.</p>
+                </div>
+
+                <!-- Target Input Section -->
+                <div class="scanner-section">
+                    <h2 class="section-title">Target Configuration</h2>
+                    <div class="target-form">
+                        <div class="form-group">
+                            <label for="target-input" class="form-label">Target Domain</label>
+                            <input type="text" id="target-input" class="form-control" placeholder="example.com" />
+                            <div class="form-help">Enter the target domain (without http/https)</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="include-subdomains" checked>
+                                    Include subdomains in scan
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="delay-setting" class="form-label">Request Delay (seconds)</label>
+                            <select id="delay-setting" class="form-control">
+                                <option value="2">2 seconds (Fast)</option>
+                                <option value="3" selected>3 seconds (Normal)</option>
+                                <option value="5">5 seconds (Careful)</option>
+                                <option value="10">10 seconds (Very Safe)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Selection -->
+                <div class="scanner-section">
+                    <h2 class="section-title">Scan Categories</h2>
+                    <div class="category-selection">
+                        <div class="selection-controls">
+                            <button class="btn btn--secondary" id="select-all-categories">Select All</button>
+                            <button class="btn btn--secondary" id="select-high-risk">High Risk Only</button>
+                            <button class="btn btn--secondary" id="clear-selection">Clear All</button>
+                        </div>
+                        <div class="category-checkboxes" id="category-checkboxes">
+                            <!-- Category checkboxes will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scan Controls -->
+                <div class="scanner-section">
+                    <div class="scan-controls">
+                        <button class="btn btn--primary btn--lg" id="start-scan">
+                            <span class="btn-text">Start Dorking Scan</span>
+                            <span class="btn-loader hidden">Scanning...</span>
+                        </button>
+                        <button class="btn btn--outline btn--lg hidden" id="stop-scan">Stop Scan</button>
+                    </div>
+                </div>
+
+                <!-- Scan Progress -->
+                <div class="scan-progress-section hidden" id="scan-progress-section">
+                    <h3>Scan Progress</h3>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <div class="progress-text" id="progress-text">0% - Initializing...</div>
+                    </div>
+                    <div class="scan-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="scanned-dorks">0</span>
+                            <span class="stat-label">Scanned</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="found-results">0</span>
+                            <span class="stat-label">Found</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="current-category">-</span>
+                            <span class="stat-label">Category</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categories Tab -->
+            <section class="tab-content" data-content="categories">
+                <h2 class="section-title">GHDB Categories</h2>
+                <p class="section-description">Browse Google hacking database categories and their dorks.</p>
+                <div class="categories-grid" id="categories-grid">
+                    <!-- Categories will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Results Tab -->
+            <section class="tab-content" data-content="results">
+                <div class="results-header">
+                    <h2 class="section-title">Scan Results</h2>
+                    <div class="results-actions">
+                        <button class="btn btn--secondary" id="export-results">Export Results</button>
+                        <button class="btn btn--outline" id="clear-results">Clear Results</button>
+                    </div>
+                </div>
+                
+                <!-- Results Filter -->
+                <div class="results-filter">
+                    <input type="text" id="results-search" class="form-control" placeholder="Search results..." />
+                    <select id="results-category-filter" class="form-control">
+                        <option value="">All Categories</option>
+                    </select>
+                    <select id="results-risk-filter" class="form-control">
+                        <option value="">All Risk Levels</option>
+                        <option value="Critical">Critical</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
+
+                <!-- Results Container -->
+                <div class="results-container" id="results-container">
+                    <div class="empty-state">No scan results yet. Start a scan to see results here.</div>
+                </div>
+            </section>
+
+            <!-- Google Operators Tab -->
+            <section class="tab-content" data-content="operators">
+                <h2 class="section-title">Google Search Operators Reference</h2>
+                <p class="section-description">Essential Google search operators for advanced dorking techniques.</p>
+                <div class="operators-grid" id="operators-grid">
+                    <!-- Operators will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Ethics Tab -->
+            <section class="tab-content" data-content="ethics">
+                <h2 class="section-title">Ethical Guidelines & Legal Considerations</h2>
+                <div class="ethics-warning">
+                    <h3>⚠️ Important Notice</h3>
+                    <p>This tool is designed for ethical security research and authorized testing only. Misuse may violate laws and terms of service.</p>
+                </div>
+                <div class="ethics-content">
+                    <div class="ethics-section">
+                        <h3>Ethical Usage Guidelines</h3>
+                        <ul class="ethics-list" id="ethics-list">
+                            <!-- Ethics guidelines will be populated by JavaScript -->
+                        </ul>
+                    </div>
+                    <div class="ethics-section">
+                        <h3>Best Practices</h3>
+                        <ul class="ethics-list">
+                            <li>Always obtain proper written authorization before testing</li>
+                            <li>Implement rate limiting to avoid overwhelming target systems</li>
+                            <li>Document your findings responsibly</li>
+                            <li>Follow responsible disclosure practices</li>
+                            <li>Respect the privacy and security of others</li>
+                            <li>Do not access sensitive data without permission</li>
+                            <li>Report vulnerabilities through proper channels</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div class="toast hidden" id="toast">
+        <span class="toast-message"></span>
+    </div>
+
+    <!-- Result Detail Modal -->
+    <div class="modal hidden" id="result-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Result Details</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="result-url" id="modal-url"></div>
+                <div class="result-info">
+                    <h4>Title</h4>
+                    <p id="modal-title"></p>
+                    <h4>Description</h4>
+                    <p id="modal-description"></p>
+                    <h4>Query Used</h4>
+                    <div class="dork-query" id="modal-query"></div>
+                    <div class="result-meta">
+                        <span class="result-risk" id="modal-risk"></span>
+                        <span class="result-category" id="modal-category"></span>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn--primary" id="visit-result">Visit URL</button>
+                    <button class="btn btn--secondary" id="copy-url">Copy URL</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

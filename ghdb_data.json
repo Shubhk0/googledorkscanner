@@ -1,0 +1,292 @@
+{
+  "categories": {
+    "1": "Footholds",
+    "2": "Files Containing Usernames",
+    "3": "Files Containing Passwords",
+    "4": "Files Containing Juicy Info",
+    "5": "Sensitive Directories",
+    "6": "Web Server Detection",
+    "7": "Vulnerable Files",
+    "8": "Vulnerable Servers",
+    "9": "Error Messages",
+    "10": "Sensitive Online Shopping Info",
+    "11": "Network or Vulnerability Data",
+    "12": "Pages Containing Login Portals",
+    "13": "Various Online Devices",
+    "14": "Advisories and Vulnerabilities"
+  },
+  "dorks": {
+    "1": [
+      {
+        "query": "intitle:\"Apache Status\" \"Apache Server Status for\"",
+        "description": "Finds Apache status pages that may reveal server information",
+        "risk": "Medium",
+        "author": "Security Research"
+      },
+      {
+        "query": "intitle:\"Index of /admin\"",
+        "description": "Looks for exposed admin directories",
+        "risk": "High",
+        "author": "Security Research"
+      },
+      {
+        "query": "intitle:\"Welcome to nginx!\"",
+        "description": "Default nginx installation pages",
+        "risk": "Low",
+        "author": "Security Research"
+      }
+    ],
+    "2": [
+      {
+        "query": "filetype:txt username password",
+        "description": "Text files containing username and password keywords",
+        "risk": "High",
+        "author": "Security Research"
+      },
+      {
+        "query": "\"username.xlsx\" ext:xlsx",
+        "description": "Excel files containing usernames",
+        "risk": "Medium",
+        "author": "ManhNho"
+      },
+      {
+        "query": "intext:\"mysql_connect\" filetype:php",
+        "description": "PHP files with MySQL connection strings that may contain usernames",
+        "risk": "High",
+        "author": "Security Research"
+      }
+    ],
+    "3": [
+      {
+        "query": "filetype:env \"DB_PASSWORD\"",
+        "description": "Environment files containing database passwords",
+        "risk": "Critical",
+        "author": "Security Research"
+      },
+      {
+        "query": "\"admin password\" filetype:txt",
+        "description": "Text files containing admin passwords",
+        "risk": "Critical",
+        "author": "Security Research"
+      },
+      {
+        "query": "intitle:\"index of\" \"passwords.txt\"",
+        "description": "Exposed password files in directory listings",
+        "risk": "Critical",
+        "author": "Security Research"
+      }
+    ],
+    "4": [
+      {
+        "query": "filetype:pdf \"confidential\"",
+        "description": "PDF files marked as confidential",
+        "risk": "Medium",
+        "author": "Security Research"
+      },
+      {
+        "query": "intext:\"/login.php\" intitle:\"login\"",
+        "description": "Pages containing login functionality",
+        "risk": "Medium",
+        "author": "Avadhesh Nishad"
+      },
+      {
+        "query": "filetype:xls \"social security number\"",
+        "description": "Excel files potentially containing SSNs",
+        "risk": "High",
+        "author": "Security Research"
+      }
+    ],
+    "5": [
+      {
+        "query": "intitle:\"index of\" /backup",
+        "description": "Backup directories exposed through directory listing",
+        "risk": "High",
+        "author": "Security Research"
+      },
+      {
+        "query": "intitle:\"index of\" /config",
+        "description": "Configuration directories with sensitive files",
+        "risk": "High",
+        "author": "Security Research"
+      },
+      {
+        "query": "intitle:\"index of\" /private",
+        "description": "Private directories that should not be public",
+        "risk": "Medium",
+        "author": "Security Research"
+      }
+    ],
+    "6": [
+      {
+        "query": "intitle:\"Apache2 Debian Default Page\"",
+        "description": "Default Apache2 installation on Debian",
+        "risk": "Low",
+        "author": "Security Research"
+      },
+      {
+        "query": "\"Server: Microsoft-IIS\" filetype:txt",
+        "description": "Files revealing IIS server information",
+        "risk": "Low",
+        "author": "Security Research"
+      },
+      {
+        "query": "intitle:\"IIS Windows Server\"",
+        "description": "Default IIS server pages",
+        "risk": "Low",
+        "author": "Security Research"
+      }
+    ],
+    "7": [
+      {
+        "query": "filetype:php inurl:\"config.php\"",
+        "description": "PHP configuration files that may contain sensitive data",
+        "risk": "High",
+        "author": "Security Research"
+      },
+      {
+        "query": "filetype:sql \"INSERT INTO users\"",
+        "description": "SQL files containing user data insertion queries",
+        "risk": "Medium",
+        "author": "Security Research"
+      },
+      {
+        "query": "\"wp-config.php\" filetype:txt",
+        "description": "WordPress configuration files",
+        "risk": "High",
+        "author": "Security Research"
+      }
+    ],
+    "8": [
+      {
+        "query": "inurl:\"/phpMyAdmin/\" intitle:\"Welcome to phpMyAdmin\"",
+        "description": "Exposed phpMyAdmin interfaces",
+        "risk": "Critical",
+        "author": "Security Research"
+      },
+      {
+        "query": "intitle:\"MantisBT\" \"Administration\"",
+        "description": "MantisBT administrative interfaces",
+        "risk": "Medium",
+        "author": "Mr.XSecr3t"
+      },
+      {
+        "query": "inurl:\"/admin\" intitle:\"admin panel\"",
+        "description": "Generic admin panels",
+        "risk": "High",
+        "author": "Security Research"
+      }
+    ],
+    "9": [
+      {
+        "query": "\"Error Diagnostic Information\" intitle:\"Error Occurred While\"",
+        "description": "Diagnostic error messages revealing system information",
+        "risk": "Medium",
+        "author": "Security Research"
+      },
+      {
+        "query": "\"MySQL Error\" \"Warning: mysql_connect()\"",
+        "description": "MySQL connection errors revealing database information",
+        "risk": "Medium",
+        "author": "Security Research"
+      },
+      {
+        "query": "\"dispatch = debugger.\"",
+        "description": "Debug error messages",
+        "risk": "Low",
+        "author": "deadroot"
+      }
+    ],
+    "10": [
+      {
+        "query": "filetype:xls \"credit card number\"",
+        "description": "Files potentially containing credit card information",
+        "risk": "Critical",
+        "author": "Security Research"
+      },
+      {
+        "query": "\"payment\" filetype:csv \"card\"",
+        "description": "CSV files with payment card data",
+        "risk": "Critical",
+        "author": "Security Research"
+      }
+    ],
+    "11": [
+      {
+        "query": "filetype:log \"failed password for root\"",
+        "description": "System logs showing failed login attempts",
+        "risk": "Low",
+        "author": "Security Research"
+      },
+      {
+        "query": "intitle:\"VNC viewer for Java\"",
+        "description": "VNC remote access interfaces",
+        "risk": "High",
+        "author": "Security Research"
+      }
+    ],
+    "12": [
+      {
+        "query": "intitle:\"Login\" inurl:\"/admin\"",
+        "description": "Administrative login pages",
+        "risk": "Medium",
+        "author": "Security Research"
+      },
+      {
+        "query": "\"please login\" \"username\" \"password\"",
+        "description": "Generic login forms",
+        "risk": "Low",
+        "author": "Security Research"
+      }
+    ],
+    "13": [
+      {
+        "query": "intext:\"Camera Live Image\"",
+        "description": "Live camera feeds accessible online",
+        "risk": "High",
+        "author": "Security Research"
+      },
+      {
+        "query": "intitle:\"DVR\" \"Network Camera\"",
+        "description": "Network-connected DVR systems",
+        "risk": "High",
+        "author": "Security Research"
+      }
+    ],
+    "14": [
+      {
+        "query": "\"SQL injection vulnerability\" filetype:txt",
+        "description": "Documents describing SQL injection vulnerabilities",
+        "risk": "Medium",
+        "author": "Security Research"
+      },
+      {
+        "query": "\"XSS vulnerability\" site:cve.mitre.org",
+        "description": "XSS vulnerabilities in CVE database",
+        "risk": "Medium",
+        "author": "Security Research"
+      }
+    ]
+  },
+  "operators": {
+    "site:": "Restricts search to a specific domain",
+    "filetype:": "Searches for specific file types",
+    "intitle:": "Searches for terms in the page title",
+    "inurl:": "Searches for terms in the URL",
+    "intext:": "Searches for terms in the page content",
+    "ext:": "Similar to filetype, searches for file extensions",
+    "cache:": "Shows cached version of a page",
+    "related:": "Finds pages related to a given URL",
+    "allintext:": "All terms must appear in the text",
+    "allintitle:": "All terms must appear in the title",
+    "allinurl:": "All terms must appear in the URL"
+  },
+  "ethical_guidelines": [
+    "Only use Google dorking for authorized security testing and research",
+    "Respect robots.txt and terms of service",
+    "Do not access or download sensitive information without permission",
+    "Report discovered vulnerabilities responsibly",
+    "Use rate limiting to avoid being blocked by search engines",
+    "Consider legal implications in your jurisdiction",
+    "Obtain proper authorization before testing third-party systems"
+  ]
+}
